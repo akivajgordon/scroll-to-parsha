@@ -27,9 +27,9 @@
           preserve_interword_spaces: '1',
         })
 
-        const pages = await (await fetch('/cleaned.json')).json()
+        const pages = await (await fetch('cleaned.json')).json()
         const parshiyot = await (
-          await fetch('/parshiyot-with-starts.json')
+          await fetch('parshiyot-with-starts.json')
         ).json()
 
         const select = document.querySelector('#select')
