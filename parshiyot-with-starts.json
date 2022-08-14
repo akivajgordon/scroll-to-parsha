@@ -1,0 +1,272 @@
+[
+  {
+    "he": "בראשית",
+    "en": "Bereshit",
+    "startPage": 1
+  },
+  {
+    "he": "נח",
+    "en": "Noach",
+    "startPage": 6
+  },
+  {
+    "he": "לך לך",
+    "en": "Lech Lecha",
+    "startPage": 12
+  },
+  {
+    "he": "וירא",
+    "en": "Vayera",
+    "startPage": 17
+  },
+  {
+    "he": "חיי שרה",
+    "en": "Chayei Sara",
+    "startPage": 23
+  },
+  {
+    "he": "תולדות",
+    "en": "Toldot",
+    "startPage": 27
+  },
+  {
+    "he": "ויצא",
+    "en": "Vayetzei",
+    "startPage": 31
+  },
+  {
+    "he": "וישלח",
+    "en": "Vayishlach",
+    "startPage": 37
+  },
+  {
+    "he": "וישב",
+    "en": "Vayeshev",
+    "startPage": 42
+  },
+  {
+    "he": "מקץ",
+    "en": "Miketz",
+    "startPage": 47
+  },
+  {
+    "he": "ויגש",
+    "en": "Vayigash",
+    "startPage": 53
+  },
+  {
+    "he": "ויחי",
+    "en": "Vayechi",
+    "startPage": 57
+  },
+  {
+    "he": "שמות",
+    "en": "Shemot",
+    "startPage": 61
+  },
+  {
+    "he": "וארא",
+    "en": "Vaera",
+    "startPage": 66
+  },
+  {
+    "he": "בא",
+    "en": "Bo",
+    "startPage": 71
+  },
+  {
+    "he": "בשלח",
+    "en": "Beshalach",
+    "startPage": 76
+  },
+  {
+    "he": "יתרו",
+    "en": "Yitro",
+    "startPage": 81
+  },
+  {
+    "he": "משפטים",
+    "en": "Mishpatim",
+    "startPage": 84
+  },
+  {
+    "he": "תרומה",
+    "en": "Terumah",
+    "startPage": 89
+  },
+  {
+    "he": "תצוה",
+    "en": "Tetzaveh",
+    "startPage": 92
+  },
+  {
+    "he": "כי תשא",
+    "en": "Ki Tisa",
+    "startPage": 97
+  },
+  {
+    "he": "ויקהל",
+    "en": "Vayakhel",
+    "startPage": 103
+  },
+  {
+    "he": "פקודי",
+    "en": "Pekudei",
+    "startPage": 108
+  },
+  {
+    "he": "ויקרא",
+    "en": "Vayikra",
+    "startPage": 111
+  },
+  {
+    "he": "צו",
+    "en": "Tzav",
+    "startPage": 117
+  },
+  {
+    "he": "שמיני",
+    "en": "Shmini",
+    "startPage": 121
+  },
+  {
+    "he": "תזריע",
+    "en": "Tazria",
+    "startPage": 124
+  },
+  {
+    "he": "מצורע",
+    "en": "Metzora",
+    "startPage": 127
+  },
+  {
+    "he": "אחרי מות",
+    "en": "Achrei Mot",
+    "startPage": 131
+  },
+  {
+    "he": "קדושים",
+    "en": "Kedoshim",
+    "startPage": 135
+  },
+  {
+    "he": "אמור",
+    "en": "Emor",
+    "startPage": 137
+  },
+  {
+    "he": "בהר",
+    "en": "Behar",
+    "startPage": 143
+  },
+  {
+    "he": "בחקתי",
+    "en": "Bechukotai",
+    "startPage": 145
+  },
+  {
+    "he": "במדבר",
+    "en": "Bamidbar",
+    "startPage": 148
+  },
+  {
+    "he": "נשא",
+    "en": "Nasso",
+    "startPage": 154
+  },
+  {
+    "he": "בהעלותך",
+    "en": "Beha'alotcha",
+    "startPage": 162
+  },
+  {
+    "he": "שלח",
+    "en": "Sh'lach",
+    "startPage": 168
+  },
+  {
+    "he": "קרח",
+    "en": "Korach",
+    "startPage": 172
+  },
+  {
+    "he": "חקת",
+    "en": "Chukat",
+    "startPage": 177
+  },
+  {
+    "he": "בלק",
+    "en": "Balak",
+    "startPage": 180
+  },
+  {
+    "he": "פנחס",
+    "en": "Pinchas",
+    "startPage": 185
+  },
+  {
+    "he": "מטות",
+    "en": "Matot",
+    "startPage": 191
+  },
+  {
+    "he": "מסעי",
+    "en": "Masei",
+    "startPage": 196
+  },
+  {
+    "he": "דברים",
+    "en": "Devarim",
+    "startPage": 200
+  },
+  {
+    "he": "ואתחנן",
+    "en": "Vaetchanan",
+    "startPage": 205
+  },
+  {
+    "he": "עקב",
+    "en": "Eikev",
+    "startPage": 211
+  },
+  {
+    "he": "ראה",
+    "en": "Re'eh",
+    "startPage": 217
+  },
+  {
+    "he": "שופטים",
+    "en": "Shoftim",
+    "startPage": 223
+  },
+  {
+    "he": "כי תצא",
+    "en": "Ki Teitzei",
+    "startPage": 227
+  },
+  {
+    "he": "כי תבוא",
+    "en": "Ki Tavo",
+    "startPage": 232
+  },
+  {
+    "he": "נצבים",
+    "en": "Nitzavim",
+    "startPage": 238
+  },
+  {
+    "he": "וילך",
+    "en": "Vayeilech",
+    "startPage": 240
+  },
+  {
+    "he": "האזינו",
+    "en": "Ha'Azinu",
+    "startPage": 242
+  },
+  {
+    "he": "וזאת הברכה",
+    "en": "Vezot Haberakhah",
+    "startPage": 244
+  }
+]
