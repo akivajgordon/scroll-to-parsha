@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js"></script>
     <script src="//unpkg.com/string-similarity/umd/string-similarity.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.0/dist/browser-image-compression.js"
+    ></script>
   </head>
   <body>
     <form>
@@ -12,81 +16,6 @@
       <input id="image" type="file" accept="image/*" />
       <div id="loading"></div>
     </form>
-    <script>
-      ;(async () => {
-        const worker = Tesseract.createWorker({
-          logger: (m) => console.log(m),
-          errorHandler: (e) => console.error(e),
-        })
-
-        await worker.load()
-        await worker.loadLanguage('heb')
-        await worker.initialize('heb')
-        await worker.setParameters({
-          tessedit_char_whitelist: 'אבגדהוזחטיכלמנסעפצקרשתךםןףץ',
-          preserve_interword_spaces: '1',
-        })
-
-        const pages = await (await fetch('cleaned.json')).json()
-        const parshiyot = await (
-          await fetch('parshiyot-with-starts.json')
-        ).json()
-
-        const select = document.querySelector('#select')
-        parshiyot.forEach((parsha, index) => {
-          const option = new Option(parsha.he, index)
-          select.options.add(option)
-        })
-
-        document
-          .querySelector('#image')
-          .addEventListener('change', async (e) => {
-            const files = e.target.files
-            if (!(files || files.length)) return
-
-            const file = files[0]
-
-            document.querySelector('#loading').innerHTML = 'Loading...'
-
-            const {
-              data: { text },
-            } = await worker.recognize(file)
-
-            const scores = pages.map((pageText) => {
-              return stringSimilarity.compareTwoStrings(
-                text.replace(/[^א-ת]/g, ''),
-                pageText
-              )
-            })
-
-            const highestScore = Math.max(...scores)
-
-            const pageWithHighestScore = scores.findIndex(
-              (score) => score === highestScore
-            )
-
-            console.log({ scores, highestScore, pageWithHighestScore })
-            const selectedParsha = select.selectedIndex
-
-            const startPageOfSelectedParsha =
-              parshiyot[selectedParsha].startPage
-
-            const pageFromImage = pageWithHighestScore + 1
-
-            const columnsToScroll = startPageOfSelectedParsha - pageFromImage
-
-            const needsToAdvance = columnsToScroll > 0
-
-            const message =
-              columnsToScroll === 0
-                ? `You're already there!`
-                : `You need to get to column ${startPageOfSelectedParsha}, but it looks like you're currently on column ${pageFromImage}. You need to ${
-                    needsToAdvance ? 'advance' : 'go backwards'
-                  } by ${Math.abs(columnsToScroll)} columns`
-
-            document.querySelector('#loading').innerHTML = message
-          })
-      })()
-    </script>
+    <script src="/index.js"></script>
   </body>
 </html>
