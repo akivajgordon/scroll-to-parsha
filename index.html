@@ -9,13 +9,23 @@
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.0/dist/browser-image-compression.js"
     ></script>
-  </head>
+    <script src="https://kit.fontawesome.com/5a2e26ad8a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="index.css"/>
   <body>
-    <form>
-      <select id="select"></select>
+    <div id="message">
+      <h2>Torah Scrolling Helper</h2>
+      <p>This simple utility helps you scroll to a parsha from wherever the Torah scroll is scrolled to right now.</p>
+      <p>Start by choosing your parsha.</p>
+    </div>
+
+    <div id="select-parsha-wrapper" class="flex-col">
+      <select id="select-parsha"></select>
+    </div>
+
+    <div id="upload-picture" class="flex-col">
+      <label for="image" aria-role="button">Upload a Picture</label>
       <input id="image" type="file" accept="image/*" />
-      <div id="loading"></div>
-    </form>
+    </div>
     <script src="index.js"></script>
   </body>
 </html>

@@ -1,0 +1,176 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-primary: dodgerblue;
+  --color-secondary: lightgrey;
+
+  --padding-lr: 1.5rem;
+}
+
+body {
+  font-family: 'system-ui';
+  line-height: 1.4rem;
+  color: rgb(60 60 60);
+
+  /* mobile vh issue: https://dev.to/lukeshiru/comment/1jpb5 */
+  min-height: fill-available;
+  min-height: -moz-available;
+  min-height: -webkit-fill-available;
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  max-width: 70ch;
+  padding: 1rem var(--padding-lr);
+  margin: 0 auto;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+#select-parsha-wrapper,
+#upload-picture {
+  position: absolute;
+  top: 90%;
+  left: 0;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - calc(2 * var(--padding-lr)));
+}
+
+#select-parsha,
+#upload-picture label {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin: 0;
+}
+
+#select-parsha {
+  /* reset default styling: https://stackoverflow.com/a/27508479/11726617 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  outline: none;
+
+  color: black;
+  background-color: var(--color-secondary);
+  font-size: 1rem;
+}
+
+#upload-picture,
+#upload-picture input {
+  display: none;
+}
+
+#upload-picture label {
+  display: block;
+  opacity: 0;
+  color: white;
+  background-color: var(--color-primary);
+  text-align: center;
+}
+
+.fade-in-up,
+.fade-in-down,
+.fade-out-up,
+.fade-out-down,
+.move-to-top {
+  --translateY: 50%;
+  animation-iteration-count: 1;
+  animation-duration: .2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in-up {
+  from {
+    transform: translateY(var(--translateY));
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.fade-in-up {
+  animation-name: fade-in-up;
+}
+
+@keyframes fade-in-down {
+  from {
+    transform: translateY(calc(-1 * var(--translateY)));
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.fade-in-down {
+  animation-name: fade-in-down;
+}
+
+@keyframes fade-out-down {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(var(--translateY));
+    opacity: 0;
+  }
+}
+
+.fade-out-down {
+  animation-name: fade-out-down;
+}
+
+@keyframes fade-out-up {
+  from { opacity: 1 }
+  to {
+    transform: translateY(calc(-1 * var(--translateY)));
+    opacity: 0
+  }
+}
+
+.fade-out-up {
+  animation-name: fade-out-up;
+  animation-delay: .2s;
+}
+
+@keyframes move-to-top {
+  from { top: 90%; }
+  to { top: 5%; }
+}
+
+.move-to-top {
+  animation-name: move-to-top;
+  animation-duration: .4s;
+}
+
+@keyframes shake {
+  0%, 30%, 60% { transform: translateX(var(--reset)); }
+  15%, 45% { transform: translateX(var(--translate)); }
+}
+
+[class*="fa-arrow"] {
+  --translate: 5px;
+  --reset: 0px;
+  animation-name: shake;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+
+  color: var(--color-primary);
+}
+
+.fa-arrow-left {
+  --translate: -5px;
+}
