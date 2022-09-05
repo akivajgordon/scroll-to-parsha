@@ -172,7 +172,7 @@
           </h2>
           <div style="position: relative;
             display: flex; justify-content: center; align-items: center;">
-            <img src="/torah-scroll.png" alt="Torah Scroll"
+            <img src="torah-scroll.png" alt="Torah Scroll"
               class="fa-regular fa-scroll-torah" style="height: 8rem;" />
             <i class="fa-solid fa-3x fa-arrow-${
               needsToAdvance ? 'left' : 'right'
