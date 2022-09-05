@@ -164,15 +164,21 @@
     const message =
       columnsToScroll === 0
         ? `<h2 style="text-align: center;">You're already there!</h2>
-          <p>Feel free to take another
-          picture to make any adjustments.</p>`
+          <p>Feel free to take another picture to see if you need to make any
+          adjustments.</p>`
         : `<h2 style="text-align: center;">${
             needsToAdvance ? 'Advance' : 'Go backwards'
-          } ${Math.abs(columnsToScroll)} columns</h2>
-          <span class="fa-stack fa-2x" style="display: block; margin: 0 auto;">
-            <i class="fa-regular fa-stack-2x fa-scroll-torah" style="color: #FCF5E5;"></i>
-            <i class="fa-solid fa-stack-1x fa-arrow-${needsToAdvance ? 'left' : 'right'}"></i>
-          </span>
+          } ${Math.abs(columnsToScroll)} columns
+          </h2>
+          <div style="position: relative;
+            display: flex; justify-content: center; align-items: center;">
+            <img src="/torah-scroll.png" alt="Torah Scroll"
+              class="fa-regular fa-scroll-torah" style="height: 8rem;" />
+            <i class="fa-solid fa-3x fa-arrow-${
+              needsToAdvance ? 'left' : 'right'
+            }" style="position: absolute;">
+            </i>
+          </div>
           <p>It looks like you're on column ${pageFromImage}, but you need to
           get to column ${startPageOfSelectedParsha}.</p>
           <p>When you get there, feel free to take another
