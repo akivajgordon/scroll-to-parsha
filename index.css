@@ -134,11 +134,9 @@ body {
 }
 
 @keyframes fade-out-up {
-  from {
-    opacity: 1
-  }
+  from { opacity: 1 }
   to {
-    transform: translateY(-50%);
+    transform: translateY(calc(-1 * var(--translateY)));
     opacity: 0
   }
 }
@@ -149,12 +147,8 @@ body {
 }
 
 @keyframes move-to-top {
-  from {
-    top: 90%;
-  }
-  to {
-    top: 5%;
-  }
+  from { top: 90%; }
+  to { top: 5%; }
 }
 
 .move-to-top {
@@ -163,11 +157,8 @@ body {
 }
 
 @keyframes shake {
-  0% { transform: translateX(var(--reset)); }
-  15% { transform: translateX(var(--translate)); }
-  30% { transform: translateX(var(--reset)); }
-  45% { transform: translateX(var(--translate)); }
-  60% { transform: translateX(var(--reset)); }
+  0%, 30%, 60% { transform: translateX(var(--reset)); }
+  15%, 45% { transform: translateX(var(--translate)); }
 }
 
 [class*="fa-arrow"] {

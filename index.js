@@ -74,8 +74,10 @@
     animateMessageForUploadPictureButton(messageContainer)
   }
 
-  select.addEventListener('change', () => {
+  const onSelectedParshaChange = e => {
     const previousStep = getStep()
+
+    // already here, no need to re-animate
     if (previousStep === STEPS.uploadPicture) return
 
     setStep(STEPS.uploadPicture)
@@ -86,7 +88,7 @@
     const messageContainer = document.querySelector('#message')
 
     if (previousStep === STEPS.selectParsha) {
-      const selectWrapper = select.parentNode
+      const selectWrapper = e.target.parentNode
 
       selectWrapper.addEventListener('animationend', e => {
         messageContainer.classList.remove('fade-out-up')
@@ -101,8 +103,9 @@
     } else {
       startUploadPictureAnimation(messageContainer, message)
     }
+  }
 
-  })
+  select.addEventListener('change', onSelectedParshaChange)
 
   document.querySelector('#image').addEventListener('change', async (e) => {
     const files = e.target.files
@@ -115,14 +118,13 @@
       onProgress: console.log,
     })
 
-    // update and move message back up to center
     const messageContainer = document.querySelector('#message')
 
+    // update and move message back up to center
     messageContainer.firstChild.addEventListener('animationend', e => {
-      messageContainer.firstChild.classList.remove('fade-in-down')
-
       document.body.style.justifyContent = 'center'
       messageContainer.style.marginBottom = '0'
+
       messageContainer.innerHTML = `<h2 class="fade-in-down"
       style="text-align: center;">Analyzing...</h2>`
     })
