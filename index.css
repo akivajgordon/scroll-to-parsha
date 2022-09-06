@@ -157,15 +157,15 @@ body {
 }
 
 @keyframes shake {
-  0%, 30%, 60% { transform: translateX(var(--reset)); }
-  15%, 45% { transform: translateX(var(--translate)); }
+  0%, 10%, 20% { transform: translateX(var(--reset)); }
+  5%, 15% { transform: translateX(var(--translate)); }
 }
 
 [class*="fa-arrow"] {
   --translate: 5px;
   --reset: 0px;
   animation-name: shake;
-  animation-duration: 2s;
+  animation-duration: 4s;
   animation-iteration-count: infinite;
 
   color: var(--color-primary);
