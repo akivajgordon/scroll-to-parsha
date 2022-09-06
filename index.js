@@ -177,7 +177,9 @@
       messageContainer.style.marginBottom = '0'
 
       messageContainer.innerHTML = `<h2 class="fade-in-down"
-        style="text-align: center;">Analyzing the picture...</h2>`
+        style="text-align: center;">Analyzing the picture...</h2>
+        <i class="fa-regular fa-2x fa-circle-notch fa-spin"
+        style="display: flex; justify-content: center;"></i>`
     })
 
     messageContainer.firstChild.classList.add('fade-out-down')
