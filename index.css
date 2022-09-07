@@ -4,14 +4,13 @@
   box-sizing: border-box;
 }
 
-:root {
+body {
   --color-primary: dodgerblue;
   --color-secondary: lightgrey;
 
-  --color-button: dodgerblue;
-}
+  --color-button-primary: dodgerblue;
+  --color-button-secondary: lightgrey;
 
-body {
   --body-side-padding: 1.5rem;
 
   font-family: 'system-ui';
@@ -33,6 +32,8 @@ body {
 
 #select-parsha-wrapper,
 #upload-picture {
+  --button-side-padding: 1rem;
+
   position: absolute;
   top: 90%;
   left: 0;
@@ -43,9 +44,27 @@ body {
 
 #select-parsha,
 #upload-picture label {
-  padding: 0.75rem 1rem;
+  padding: 0.75rem var(--button-side-padding);
   border-radius: 8px;
   margin: 0;
+}
+
+#select-parsha-wrapper::before,
+#select-parsha-wrapper::after {
+  position: absolute;
+  right: var(--button-side-padding);
+  font-size: 0.8rem;
+  pointer-events: none;
+}
+
+#select-parsha-wrapper::before {
+  content: '\25B2'; /* black up-pointing triangle */
+  bottom: 40%;
+}
+
+#select-parsha-wrapper::after {
+  content: '\25BC'; /* black down-pointing triangle */
+  top: 40%;
 }
 
 #select-parsha {
@@ -57,7 +76,7 @@ body {
   outline: none;
 
   color: black;
-  background-color: var(--color-secondary);
+  background-color: var(--color-button-secondary);
   font-size: 1rem;
   width: 100%;
 }
@@ -71,7 +90,7 @@ body {
   display: block;
   opacity: 0;
   color: white;
-  background-color: var(--color-button);
+  background-color: var(--color-button-primary);
   text-align: center;
 }
 
