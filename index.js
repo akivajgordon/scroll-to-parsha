@@ -63,19 +63,16 @@
   }
 
   const renderMissingInfoMessage = (messageContainer, message, animation) => {
-    messageContainer.addEventListener(
-      'animationend',
-      () => {
-        messageContainer.classList.remove(animation)
-        animateUploadPictureButton()
-      }
-    )
+    messageContainer.onanimationend = e => {
+      messageContainer.classList.remove(animation)
+      animateUploadPictureButton()
+    }
 
     animateMissingInfoMessage(messageContainer, message, animation)
   }
 
   const resultMessage = (selectedParshaIndex, pageFromImage) => {
-    const startPageOfSelectedParsha = parshiyot[selectedParshaIndex].startPage
+    const startPageOfSelectedParsha = parshiyot[selectedParshaIndex - 1].startPage
 
     const columnsToScroll = startPageOfSelectedParsha - pageFromImage
 
@@ -109,14 +106,14 @@
   const renderResult = () => {
     const messageContainer = document.querySelector('#message')
 
-    const message = resultMessage(state.selectedParshaIndex - 1, state.pageFromImage)
+    const message = resultMessage(state.selectedParshaIndex, state.pageFromImage)
 
-    messageContainer.firstChild.addEventListener('animationend', e => {
+    messageContainer.firstChild.onanimationend = e => {
       messageContainer.innerHTML = message
       for (let i = 0; i < messageContainer.children.length; ++i) {
         messageContainer.children[i].classList.add('fade-in-down')
       }
-    })
+    }
 
     messageContainer.firstChild.classList.add('fade-out-down')
   }
@@ -134,14 +131,14 @@
     const messageContainer = document.querySelector('#message')
     const selectWrapper = document.querySelector('#select-parsha').parentNode
 
-    selectWrapper.addEventListener('animationend', e => {
+    selectWrapper.onanimationend = e => {
       messageContainer.classList.remove('fade-out-up')
       renderMissingInfoMessage(messageContainer, message, 'fade-in-up')
-    })
+    }
 
-    messageContainer.addEventListener('animationend', e => {
+    messageContainer.onanimationend = e => {
       selectWrapper.classList.add('move-to-top')
-    })
+    }
 
     messageContainer.classList.add('fade-out-up')
   }
@@ -150,18 +147,19 @@
     state.selectedParshaIndex = e.target.selectedIndex
 
     const previousStep = getStep()
-    // already here, no need to re-animate
-    if (previousStep === STEPS.uploadPicture && !state.pageFromImage) return
+
+    // same screen and still need image, nothing to re-animate
+    if (!pageFromImage() && previousStep === STEPS.uploadPicture) return
 
     setStep(STEPS.uploadPicture)
 
-    if (state.pageFromImage) {
-      if (state.selectedParshaIndex) {
+    if (pageFromImage()) {
+      if (parshaIsSelected()) {
         renderResult()
       } else {
         renderSelectParsha()
       }
-    } else if (state.selectedParshaIndex) {
+    } else if (parshaIsSelected()) {
       renderUploadPicture()
     }
   }
@@ -172,7 +170,7 @@
     const messageContainer = document.querySelector('#message')
 
     // update and move message back up to center
-    messageContainer.firstChild.addEventListener('animationend', e => {
+    messageContainer.firstChild.onanimationend = e => {
       document.body.style.justifyContent = 'center'
       messageContainer.style.marginBottom = '0'
 
@@ -180,9 +178,17 @@
         style="text-align: center;">Analyzing the picture...</h2>
         <i class="fa-regular fa-2x fa-circle-notch fa-spin"
         style="display: flex; justify-content: center;"></i>`
-    })
+    }
 
     messageContainer.firstChild.classList.add('fade-out-down')
+  }
+
+  const pageFromImage = () => {
+    return state.pageFromImage > 0
+  }
+
+  const parshaIsSelected = () => {
+    return state.selectedParshaIndex > 0
   }
 
   document.querySelector('#image').addEventListener('change', async (e) => {
@@ -217,8 +223,8 @@
 
     state.pageFromImage = pageWithHighestScore + 1
 
-    if (state.pageFromImage) {
-      if (state.selectedParshaIndex) {
+    if (pageFromImage()) {
+      if (parshaIsSelected()) {
         renderResult()
       } else {
         renderSelectParsha()
