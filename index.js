@@ -2,15 +2,15 @@
   const STEPS = {
     selectParsha: 'SELECT_PARSHA',
     uploadPicture: 'UPLOAD_PICTURE',
-    results: 'RESULTS'
+    results: 'RESULTS',
   }
   const state = {
     step: STEPS.selectParsha,
     pageFromImage: 0,
-    selectedParshaIndex: 0
+    selectedParshaIndex: 0,
   }
 
-  const setStep = step => {
+  const setStep = (step) => {
     state.step = step
   }
 
@@ -26,31 +26,44 @@
   const fetchParshiyot = async () =>
     (await fetch('parshiyot-with-starts.json')).json()
 
-  const prepareWorker = async () => {
-    await worker.load()
-    await worker.loadLanguage('heb')
-    await worker.initialize('heb')
-    await worker.setParameters({
-      tessedit_char_whitelist: 'אבגדהוזחטיכלמנסעפצקרשתךםןףץ',
-      preserve_interword_spaces: '1',
+  const fetchAndPopulateParshiyot = async () => {
+    const parshiyot = await fetchParshiyot()
+    parshiyot.forEach((parsha, index) => {
+      const option = new Option(`${parsha.en} - ${parsha.he}`, index)
+      select.options.add(option)
     })
+
+    return parshiyot
+  }
+
+  const fetchCleaned = async () => (await fetch('cleaned.json')).json()
+
+  const prepareWorker = async () => {
+    try {
+      await worker.load()
+      await worker.loadLanguage('heb')
+      await worker.initialize('heb')
+      await worker.setParameters({
+        tessedit_char_whitelist: 'אבגדהוזחטיכלמנסעפצקרשתךםןףץ',
+        preserve_interword_spaces: '1',
+      })
+    } catch (e) {
+      console.error(e)
+      throw e
+    }
   }
 
   // placeholder
   select.options.add(new Option('Choose a Parsha...', -1))
 
-  const [parshiyot] = await Promise.all([fetchParshiyot(), prepareWorker()])
-
-  parshiyot.forEach((parsha, index) => {
-    const option = new Option(`${parsha.en} - ${parsha.he}`, index)
-    select.options.add(option)
-  })
-
-  const pages = await (await fetch('cleaned.json')).json()
+  const [parshiyot, pages] = await Promise.all([
+    fetchAndPopulateParshiyot(),
+    fetchCleaned(),
+    prepareWorker(),
+  ])
 
   const animateUploadPictureButton = () => {
-    document.querySelector('#upload-picture label')
-      .classList.add('fade-in-up')
+    document.querySelector('#upload-picture label').classList.add('fade-in-up')
   }
 
   const animateMissingInfoMessage = (messageContainer, message, animation) => {
@@ -63,7 +76,7 @@
   }
 
   const renderMissingInfoMessage = (messageContainer, message, animation) => {
-    messageContainer.onanimationend = e => {
+    messageContainer.onanimationend = () => {
       messageContainer.classList.remove(animation)
       animateUploadPictureButton()
     }
@@ -72,20 +85,20 @@
   }
 
   const resultMessage = (selectedParshaIndex, pageFromImage) => {
-    const startPageOfSelectedParsha = parshiyot[selectedParshaIndex - 1].startPage
+    const startPageOfSelectedParsha =
+      parshiyot[selectedParshaIndex - 1].startPage
 
     const columnsToScroll = startPageOfSelectedParsha - pageFromImage
 
     const needsToAdvance = columnsToScroll > 0
 
-    return (
-      columnsToScroll === 0
-        ? `<h2 style="text-align: center;">You're already there!</h2>
+    return columnsToScroll === 0
+      ? `<h2 style="text-align: center;">You're already there!</h2>
           <p>Feel free to take another picture to see if you need to make any
           adjustments.</p>`
-        : `<h2 style="text-align: center;">${
-            needsToAdvance ? 'Advance' : 'Go backwards'
-          } ${Math.abs(columnsToScroll)} columns
+      : `<h2 style="text-align: center;">${
+          needsToAdvance ? 'Advance' : 'Go backwards'
+        } ${Math.abs(columnsToScroll)} columns
           </h2>
           <div style="position: relative;
             display: flex; justify-content: center; align-items: center;">
@@ -100,15 +113,17 @@
           get to column ${startPageOfSelectedParsha}.</p>
           <p>When you get there, feel free to take another
           picture to see if you need to make any adjustments.</p>`
-    )
   }
 
   const renderResult = () => {
     const messageContainer = document.querySelector('#message')
 
-    const message = resultMessage(state.selectedParshaIndex, state.pageFromImage)
+    const message = resultMessage(
+      state.selectedParshaIndex,
+      state.pageFromImage
+    )
 
-    messageContainer.firstChild.onanimationend = e => {
+    messageContainer.firstChild.onanimationend = () => {
       messageContainer.innerHTML = message
       for (let i = 0; i < messageContainer.children.length; ++i) {
         messageContainer.children[i].classList.add('fade-in-down')
@@ -122,7 +137,11 @@
     const message = `<p>It looks like you're on column ${state.pageFromImage}.</p>
       <p>Select a parsha so we know where you need to scroll to.</p>`
 
-    renderMissingInfoMessage(document.querySelector('#message'), message, 'fade-in-down')
+    renderMissingInfoMessage(
+      document.querySelector('#message'),
+      message,
+      'fade-in-down'
+    )
   }
 
   const renderUploadPicture = () => {
@@ -131,19 +150,19 @@
     const messageContainer = document.querySelector('#message')
     const selectWrapper = document.querySelector('#select-parsha').parentNode
 
-    selectWrapper.onanimationend = e => {
+    selectWrapper.onanimationend = () => {
       messageContainer.classList.remove('fade-out-up')
       renderMissingInfoMessage(messageContainer, message, 'fade-in-up')
     }
 
-    messageContainer.onanimationend = e => {
+    messageContainer.onanimationend = () => {
       selectWrapper.classList.add('move-to-top')
     }
 
     messageContainer.classList.add('fade-out-up')
   }
 
-  const onSelectedParshaChange = e => {
+  const onSelectedParshaChange = (e) => {
     state.selectedParshaIndex = e.target.selectedIndex
 
     const previousStep = getStep()
@@ -170,7 +189,7 @@
     const messageContainer = document.querySelector('#message')
 
     // update and move message back up to center
-    messageContainer.firstChild.onanimationend = e => {
+    messageContainer.firstChild.onanimationend = () => {
       document.body.style.justifyContent = 'center'
       messageContainer.style.marginBottom = '0'
 
